@@ -6,9 +6,12 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
-    this.y = 0;
+    this.x = Enemy.offScreenLocation;
+    this.y = 60;
+    this.speed = 200;
 };
+
+Enemy.offScreenLocation = -100;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -16,6 +19,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    // debugger;
+    this.x = this.x + this.speed * dt;
+
+    if (this.x > ctx.canvas.width) {
+        this.x = Enemy.offScreenLocation;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
